@@ -20,6 +20,9 @@ public static class WebApplicationBuilderExtensions
     {
         builder.Services.Configure<VersionOptions>(
             builder.Configuration.GetSection("Version"));
+
+        builder.Services.Configure<ComputingOptions>(
+            builder.Configuration.GetSection("Computing"));
     }
 
     /// <summary>

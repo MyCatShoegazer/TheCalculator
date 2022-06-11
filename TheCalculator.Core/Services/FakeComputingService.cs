@@ -1,5 +1,7 @@
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Options;
 using TheCalculator.Core.InputModels;
+using TheCalculator.Core.Options;
 using TheCalculator.Core.Services.Abstract;
 using TheCalculator.Core.ViewModels;
 
@@ -10,8 +12,19 @@ namespace TheCalculator.Core.Services;
 /// </summary>
 public class FakeComputingService : IComputingService
 {
+    private readonly ComputingOptions _computingOptions;
+
+    /// <summary>
+    ///     Creates a new instance of fake computing service.
+    /// </summary>
+    /// <param name="computingOptions">Computing options.</param>
+    public FakeComputingService(IOptions<ComputingOptions> computingOptions)
+    {
+        this._computingOptions = computingOptions.Value;
+    }
+
     /// <inheritdoc />
-    public ValueTask<double> ComputeSquareAsync(double value,
+    public async ValueTask<double> ComputeSquareAsync(double value,
         CancellationToken cancellationToken = default)
     {
         const int SquarePower = 2;
@@ -25,8 +38,11 @@ public class FakeComputingService : IComputingService
 
         cancellationToken.ThrowIfCancellationRequested();
 
+        await Task.Delay(GetFakeDelay(this._computingOptions),
+            cancellationToken);
+
         var result = Math.Pow(value, SquarePower);
-        return ValueTask.FromResult(result);
+        return result;
     }
 
     /// <inheritdoc />
@@ -36,6 +52,7 @@ public class FakeComputingService : IComputingService
     {
         foreach (var value in values)
             yield return
+                // TODO: add caching here
                 await this.ComputeSquareAsync(value, cancellationToken);
     }
 
@@ -53,5 +70,17 @@ public class FakeComputingService : IComputingService
         {
             Origin = squareChainInputModel.Values, Sum = sum
         };
+    }
+
+    /// <summary>
+    ///     Gets fake delay in milliseconds.
+    /// </summary>
+    /// <param name="computingOptions">Computing options.</param>
+    /// <returns>Returns fake delay in millisecond.</returns>
+    private static int GetFakeDelay(ComputingOptions computingOptions)
+    {
+        var random = new Random();
+        return random.Next(computingOptions.FakeSquareDelayMin,
+            computingOptions.FakeSquareDelayMax);
     }
 }

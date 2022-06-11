@@ -38,6 +38,7 @@ public static class WebApplicationBuilderExtensions
     public static void AddApiServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IStatusService, StatusService>();
+        builder.Services.AddScoped<IComputingService, FakeComputingService>();
     }
 
     /// <summary>

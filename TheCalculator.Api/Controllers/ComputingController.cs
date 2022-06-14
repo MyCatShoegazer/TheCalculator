@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using TheCalculator.Core.InputModels;
 using TheCalculator.Core.Services.Abstract;
-using TheCalculator.Core.ViewModels;
+using TheCalculator.Domain.ViewModels;
+using TheCalculator.Domain.InputModels;
 
 namespace TheCalculator.Api.Controllers;
 

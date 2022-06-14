@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using TheCalculator.Core.Infrastructure;
+using TheCalculator.Domain.Infrastructure;
 
 namespace TheCalculator.Core.Filters;
 

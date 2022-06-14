@@ -1,4 +1,4 @@
-namespace TheCalculator.Core.InputModels;
+namespace TheCalculator.Domain.InputModels;
 
 /// <summary>
 ///     Square chain input model.

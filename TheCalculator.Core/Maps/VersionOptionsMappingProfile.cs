@@ -1,6 +1,6 @@
 using AutoMapper;
 using TheCalculator.Core.Options;
-using TheCalculator.Core.ViewModels;
+using TheCalculator.Domain.ViewModels;
 
 namespace TheCalculator.Core.Maps;
 

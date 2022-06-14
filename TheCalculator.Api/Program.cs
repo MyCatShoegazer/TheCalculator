@@ -5,6 +5,7 @@ using TheCalculator.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors();
 builder.ConfigureOptions();
 builder.Services.AddFeatureManagement();
 builder.ConfigureAutomapper();
@@ -25,6 +26,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors(configure =>
+{
+    configure.AllowAnyOrigin();
+    configure.AllowAnyMethod();
+    configure.AllowAnyHeader();
+});
 
 if (app.Environment.IsDevelopment())
 {

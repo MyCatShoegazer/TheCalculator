@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using AutoMapper;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
@@ -7,6 +8,7 @@ using TheCalculator.Core.Extensions;
 using TheCalculator.Core.Options;
 using TheCalculator.Core.Options.Features;
 using TheCalculator.Core.Services.Abstract;
+using TheCalculator.Domain.Dtos;
 using TheCalculator.Domain.ViewModels;
 using TheCalculator.Domain.InputModels;
 
@@ -19,6 +21,7 @@ public class FakeComputingService : IComputingService
 {
     private readonly IDistributedCache _distributedCache;
     private readonly IFeatureManager _featureManager;
+    private readonly IMapper _mapper;
     private readonly ComputingOptions _computingOptions;
 
     /// <summary>
@@ -27,11 +30,14 @@ public class FakeComputingService : IComputingService
     /// <param name="computingOptions">Computing options.</param>
     /// <param name="distributedCache">Distributed cache.</param>
     /// <param name="featureManager">Feature manager.</param>
+    /// <param name="mapper">Object mapper.</param>
     public FakeComputingService(IOptions<ComputingOptions> computingOptions,
-        IDistributedCache distributedCache, IFeatureManager featureManager)
+        IDistributedCache distributedCache, IFeatureManager featureManager,
+        IMapper mapper)
     {
         _distributedCache = distributedCache;
         _featureManager = featureManager;
+        _mapper = mapper;
         this._computingOptions = computingOptions.Value;
     }
 
@@ -94,10 +100,12 @@ public class FakeComputingService : IComputingService
                 cancellationToken)
             .SumAsync(cancellationToken);
 
-        return new SquareChainVm
+        var dto = new SquareChainDto
         {
             Origin = squareChainInputModel.Values, Sum = sum
         };
+
+        return this._mapper.Map<SquareChainDto, SquareChainVm>(dto);
     }
 
     /// <summary>

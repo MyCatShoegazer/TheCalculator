@@ -5,7 +5,7 @@ namespace TheCalculator.Domain.ViewModels;
 /// </summary>
 public class SquareChainVm
 {
-    public double[]? Origin { get; set; }
+    public string? Origin { get; set; }
 
     public double Sum { get; set; }
 }

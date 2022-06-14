@@ -1,4 +1,4 @@
-using TheCalculator.ViewModels;
+using TheCalculator.Domain.ViewModels;
 
 namespace TheCalculator.Core.Services.Abstract;
 

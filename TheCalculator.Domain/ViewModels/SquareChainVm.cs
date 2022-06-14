@@ -1,4 +1,4 @@
-namespace TheCalculator.ViewModels;
+namespace TheCalculator.Domain.ViewModels;
 
 /// <summary>
 ///     Square sum view model.

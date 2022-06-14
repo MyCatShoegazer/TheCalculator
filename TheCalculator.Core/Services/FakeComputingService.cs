@@ -4,11 +4,11 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 using TheCalculator.Core.Extensions;
-using TheCalculator.Core.InputModels;
 using TheCalculator.Core.Options;
 using TheCalculator.Core.Options.Features;
 using TheCalculator.Core.Services.Abstract;
-using TheCalculator.ViewModels;
+using TheCalculator.Domain.ViewModels;
+using TheCalculator.Domain.InputModels;
 
 namespace TheCalculator.Core.Services;
 

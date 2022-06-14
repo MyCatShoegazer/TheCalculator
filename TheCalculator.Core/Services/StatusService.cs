@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.Extensions.Options;
 using TheCalculator.Core.Options;
 using TheCalculator.Core.Services.Abstract;
-using TheCalculator.ViewModels;
+using TheCalculator.Domain.ViewModels;
 
 namespace TheCalculator.Core.Services;
 

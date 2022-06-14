@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheCalculator.Core", "TheCa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheCalculator.Client", "TheCalculator.Client\TheCalculator.Client.csproj", "{901DFF2E-102C-421F-B401-6814F42A8907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheCalculator.ViewModels", "TheCalculator.ViewModels\TheCalculator.ViewModels.csproj", "{64276AC0-C753-4A9B-AB65-79B963262B63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheCalculator.Domain", "TheCalculator.Domain\TheCalculator.Domain.csproj", "{64276AC0-C753-4A9B-AB65-79B963262B63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

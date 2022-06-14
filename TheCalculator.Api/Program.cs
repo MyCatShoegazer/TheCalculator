@@ -8,6 +8,7 @@ builder.ConfigureOptions();
 builder.ConfigureAutomapper();
 builder.AddApiServices();
 builder.AddApiFilters();
+builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddControllers().AddJsonOptions(configure =>
 {

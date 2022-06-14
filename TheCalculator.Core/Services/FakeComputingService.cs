@@ -1,5 +1,8 @@
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
+using TheCalculator.Core.Extensions;
 using TheCalculator.Core.InputModels;
 using TheCalculator.Core.Options;
 using TheCalculator.Core.Services.Abstract;
@@ -12,14 +15,18 @@ namespace TheCalculator.Core.Services;
 /// </summary>
 public class FakeComputingService : IComputingService
 {
+    private readonly IDistributedCache _distributedCache;
     private readonly ComputingOptions _computingOptions;
 
     /// <summary>
     ///     Creates a new instance of fake computing service.
     /// </summary>
     /// <param name="computingOptions">Computing options.</param>
-    public FakeComputingService(IOptions<ComputingOptions> computingOptions)
+    /// <param name="distributedCache">Distributed cache.</param>
+    public FakeComputingService(IOptions<ComputingOptions> computingOptions,
+        IDistributedCache distributedCache)
     {
+        _distributedCache = distributedCache;
         this._computingOptions = computingOptions.Value;
     }
 
@@ -51,9 +58,18 @@ public class FakeComputingService : IComputingService
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         foreach (var value in values)
-            yield return
-                // TODO: add caching here
-                await this.ComputeSquareAsync(value, cancellationToken);
+        {
+            var key =
+                this._distributedCache.MakeKey(
+                    value.ToString(CultureInfo.InvariantCulture));
+
+            var cacheValue = await this._distributedCache.GetOrSetAsync(key,
+                async () =>
+                    await this.ComputeSquareAsync(value, cancellationToken),
+                cancellationToken: cancellationToken);
+
+            yield return cacheValue;
+        }
     }
 
     /// <inheritdoc />

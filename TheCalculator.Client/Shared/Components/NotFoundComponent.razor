@@ -1,0 +1,16 @@
+@inherits BaseCalculatorComponent
+@inject NavigationManager NavigationManager
+
+<div class="align-items-center d-flex flex-column justify-content-center vh-100">
+    <p class="lead">
+        Nothing to show here...
+    </p>
+    <button type="button" class="btn btn-primary" @onclick="NavigateHome">
+        Go home
+    </button>
+</div>
+
+@code
+{
+    private void NavigateHome() => this.NavigationManager.NavigateTo("/", true, true);
+}

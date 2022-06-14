@@ -2,9 +2,11 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
+using Microsoft.FeatureManagement;
 using TheCalculator.Core.Extensions;
 using TheCalculator.Core.InputModels;
 using TheCalculator.Core.Options;
+using TheCalculator.Core.Options.Features;
 using TheCalculator.Core.Services.Abstract;
 using TheCalculator.Core.ViewModels;
 
@@ -16,6 +18,7 @@ namespace TheCalculator.Core.Services;
 public class FakeComputingService : IComputingService
 {
     private readonly IDistributedCache _distributedCache;
+    private readonly IFeatureManager _featureManager;
     private readonly ComputingOptions _computingOptions;
 
     /// <summary>
@@ -23,10 +26,12 @@ public class FakeComputingService : IComputingService
     /// </summary>
     /// <param name="computingOptions">Computing options.</param>
     /// <param name="distributedCache">Distributed cache.</param>
+    /// <param name="featureManager">Feature manager.</param>
     public FakeComputingService(IOptions<ComputingOptions> computingOptions,
-        IDistributedCache distributedCache)
+        IDistributedCache distributedCache, IFeatureManager featureManager)
     {
         _distributedCache = distributedCache;
+        _featureManager = featureManager;
         this._computingOptions = computingOptions.Value;
     }
 
@@ -57,8 +62,15 @@ public class FakeComputingService : IComputingService
         IEnumerable<double> values,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
+        var cacheEnabled =
+            await this._featureManager.IsEnabledAsync(FeatureFlags.UseCache);
+
         foreach (var value in values)
         {
+            if (!cacheEnabled)
+                yield return await this.ComputeSquareAsync(value,
+                    cancellationToken);
+
             var key =
                 this._distributedCache.MakeKey(
                     value.ToString(CultureInfo.InvariantCulture));

@@ -1,10 +1,12 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.FeatureManagement;
 using TheCalculator.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureOptions();
+builder.Services.AddFeatureManagement();
 builder.ConfigureAutomapper();
 builder.AddApiServices();
 builder.AddApiFilters();

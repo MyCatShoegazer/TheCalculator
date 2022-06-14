@@ -1,5 +1,5 @@
 using TheCalculator.Core.InputModels;
-using TheCalculator.Core.ViewModels;
+using TheCalculator.ViewModels;
 
 namespace TheCalculator.Core.Services.Abstract;
 

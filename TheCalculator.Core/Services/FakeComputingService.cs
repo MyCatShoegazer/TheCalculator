@@ -8,7 +8,7 @@ using TheCalculator.Core.InputModels;
 using TheCalculator.Core.Options;
 using TheCalculator.Core.Options.Features;
 using TheCalculator.Core.Services.Abstract;
-using TheCalculator.Core.ViewModels;
+using TheCalculator.ViewModels;
 
 namespace TheCalculator.Core.Services;
 

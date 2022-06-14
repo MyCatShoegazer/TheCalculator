@@ -1,4 +1,4 @@
-namespace TheCalculator.Core.ViewModels;
+namespace TheCalculator.ViewModels;
 
 /// <summary>
 ///     Application version view model.

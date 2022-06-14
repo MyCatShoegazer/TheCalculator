@@ -3,7 +3,7 @@
 
 <div class="align-items-center d-flex flex-column justify-content-center vh-100">
     <p class="lead">
-        Nothing to show here...
+        @Message
     </p>
     <button type="button" class="btn btn-primary" @onclick="NavigateHome">
         Go home
@@ -12,5 +12,11 @@
 
 @code
 {
-    private void NavigateHome() => this.NavigationManager.NavigateTo("/", true, true);
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public bool IsError { get; set; }
+
+    private void NavigateHome() => NavigationManager.NavigateTo("/", IsError, IsError);
 }

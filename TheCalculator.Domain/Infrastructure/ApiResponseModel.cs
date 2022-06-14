@@ -1,4 +1,4 @@
-namespace TheCalculator.Core.Infrastructure;
+namespace TheCalculator.Domain.Infrastructure;
 
 /// <summary>
 ///     An API response model which represents normal object response.
